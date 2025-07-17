@@ -5,6 +5,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import ENV from '@src/common/ENV';
 import { NodeEnvs } from '@src/common';
 import { errorHandler } from './middlewares/errorHandler';
+import { APIRouter } from './routes/apiRouter';
 
 /******************************************************************************
                                 Setup
@@ -34,6 +35,7 @@ if (ENV.NodeEnv === NodeEnvs.Production) {
 // Add error handler
 app.use(errorHandler);
 
+app.use('/api', APIRouter)
 /******************************************************************************
                                 Export default
 ******************************************************************************/
