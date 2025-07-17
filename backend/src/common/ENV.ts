@@ -1,4 +1,4 @@
-import jetEnv, { num } from 'jet-env';
+import jetEnv, { num, str } from 'jet-env';
 import { isEnumVal } from 'jet-validators';
 
 import { NodeEnvs } from './index';
@@ -11,6 +11,8 @@ import { NodeEnvs } from './index';
 const ENV = jetEnv({
   NodeEnv: isEnumVal(NodeEnvs),
   Port: num,
+
+  MongodbUri: str
 });
 
 

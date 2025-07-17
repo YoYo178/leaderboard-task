@@ -1,11 +1,13 @@
 import morgan from 'morgan';
 import helmet from 'helmet';
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import cors from 'cors';
 
 import ENV from '@src/common/ENV';
 import { NodeEnvs } from '@src/common';
 import { errorHandler } from './middlewares/errorHandler';
 import { APIRouter } from './routes/apiRouter';
+import { CORS_CONFIG } from './config/CORS';
 
 /******************************************************************************
                                 Setup
@@ -16,6 +18,7 @@ const app = express();
 // **** Middleware **** //
 
 // Basic middleware
+app.use(cors(CORS_CONFIG));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
