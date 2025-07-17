@@ -1,0 +1,1 @@
+export const BACKEND_URL = import.meta.env.PROD ? "https://sp-az.duckdns.org/leaderboard" : "http://localhost:3000";
