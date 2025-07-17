@@ -60,11 +60,30 @@ export const addPointsToUser = async (req: Request, res: Response) => {
             return;
         }
 
-        user.points += Math.floor(Math.random() * 10) + 1;
+        const pointsAdded = Math.floor(Math.random() * 10) + 1
+
+        user.points += pointsAdded;
+
+        user.pointsHistory = [
+            ...(user.pointsHistory || []), // Just in case the user's object doesn't have the pointsHistory property
+            {
+                pointsAdded,
+                timestamp: Date.now()
+            }
+        ]
 
         await user.save()
 
-        res.status(HttpStatusCodes.OK).json({ success: true, data: { user } });
+        res.status(HttpStatusCodes.OK).json({
+            success: true, data: {
+                user: { // Don't want to be sending the entire points history on every "claim", so we use (GET /api/users/:userID) for points history
+                    _id: user._id,
+                    name: user.name,
+                    points: user.points,
+                },
+                pointsAdded
+            }
+        });
     } catch (error) {
         res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message });
     }
