@@ -1,7 +1,16 @@
 {
-  "name": "frontend",
-  "private": true,
-  "version": "0.0.0",
+  "name": "leaderboard-task-frontend",
+  "description": "A very basic leaderboard system frontend.",
+  "homepage": "https://yoyo178.github.io/leaderboard-task",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "-_YoYo178_-"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YoYo178/leaderboard-task"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
