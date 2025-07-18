@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react';
+import type { FC } from 'react';
 import type { User } from '../../types/user.types';
 import { TopLeaderboardEntry } from '../TopLeaderboardEntry/TopLeaderboardEntry';
 import './TopLeaderboard.css'
