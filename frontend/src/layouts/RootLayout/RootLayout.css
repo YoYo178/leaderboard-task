@@ -1,0 +1,175 @@
+.root-container {
+    width: 100vw;
+    height: 100vh;
+
+    padding: 1rem;
+
+    background-color: var(--bgcolor);
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+
+    min-width: 320px;
+
+    border: rgb(119, 119, 119) 1px solid;
+    border-radius: 1rem;
+
+    background-color: var(--container-bgcolor);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 1rem;
+}
+
+.pagination-controls-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.pagination-controls-wrapper button {
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #e0e0e0;
+    color: #222;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.pagination-controls-wrapper button:disabled {
+    background-color: #cccccc;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.pagination-controls-wrapper button:not(:disabled):hover {
+    background-color: #bdbdbd;
+    cursor: pointer;
+}
+
+.buttons-flex {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons-flex>button {
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.buttons-flex>button:hover {
+    cursor: pointer;
+}
+
+.add-user-btn {
+    background-color: rgb(46, 255, 46);
+}
+
+.add-user-btn:hover {
+    background-color: rgb(0, 233, 0);
+}
+
+.add-user-btn:active {
+    background-color: rgb(48, 255, 48);
+}
+
+.claim-points-btn {
+    background-color: rgb(255, 221, 32);
+}
+
+.claim-points-btn:hover {
+    background-color: rgb(255, 217, 0);
+}
+
+.claim-points-btn:active {
+    background-color: rgb(255, 223, 42);
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  min-width: 320px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+}
+
+.modal input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #bbb;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.modal-actions button {
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: #2196f3;
+  color: #fff;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.modal-actions button:hover {
+  cursor: pointer;
+}
+
+.modal-actions button:disabled {
+  background: #b3d6f7;
+  color: #eee;
+  cursor: not-allowed;
+}
+
+.modal-actions button:not(:disabled):hover {
+  background: #1769aa;
+}
+
+.modal-error {
+  color: #d32f2f;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  width: 100%;
+}
