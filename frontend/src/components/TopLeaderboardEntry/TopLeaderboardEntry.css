@@ -1,0 +1,51 @@
+.top-leaderboard-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-leaderboard-entry.selected {
+    background: #d0eaff;
+    box-shadow: 0 0 0 2px #2196f3;
+    border-radius: 1rem;
+}
+
+.top-profile-photo {
+    font-size: 5rem;
+}
+
+.top-1-medal,
+.top-2-medal,
+.top-3-medal {
+    aspect-ratio: 1;
+
+    width: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-1-medal {
+    background-color: gold;
+    border: 1px solid grey;
+
+    width: 36px;
+}
+
+.top-2-medal {
+    background-color: silver;
+    border: 1px solid grey;
+    margin-top: 2rem;
+}
+
+.top-3-medal {
+    background-color: brown;
+    margin-top: 2rem;
+}
+
+.top-name {
+    margin-top: -1rem;
+}

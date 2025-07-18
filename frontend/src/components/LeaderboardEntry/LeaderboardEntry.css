@@ -1,0 +1,36 @@
+.leaderboard-entry {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+
+  border-radius: 1rem;
+  padding: 0 1rem;
+}
+
+.leaderboard-entry.selected {
+  background: #d0eaff;
+  box-shadow: 0 0 0 2px #2196f3;
+}
+
+.leaderboard-entry-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.leaderboard-entry-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-photo {
+  font-size: 3rem;
+  margin-top: 0.66rem;
+}
+
+.points {
+  margin-top: auto;
+  margin-bottom: auto;
+}

@@ -1,0 +1,14 @@
+.leaderboard-container {
+  width: 100%;
+  flex: 1;
+  background-color: var(--section-bgcolor);
+  border-radius: 1rem;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  overflow: hidden;
+}
