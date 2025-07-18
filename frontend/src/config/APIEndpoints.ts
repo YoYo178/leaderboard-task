@@ -15,7 +15,7 @@ const APIEndpoints: Endpoints = {
     },
     ADD_POINT_TO_USER: {
         METHOD: 'POST',
-        URL: '/api/users/:userID/add-point'
+        URL: '/api/users/:userID/add-points'
     }
 }
 
