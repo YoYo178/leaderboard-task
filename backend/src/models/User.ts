@@ -1,5 +1,4 @@
-import { MongooseModel } from '@src/utils/db.utils';
-import { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 interface IUser {
     name: string;
@@ -12,17 +11,17 @@ interface IUserPointsHistory {
     timestamp: number;
 }
 
-const userPointsHistorySchema: Schema = new Schema<IUserPointsHistory>({
+const userPointsHistorySchema: mongoose.Schema = new mongoose.Schema<IUserPointsHistory>({
     pointsAdded: { type: Number, required: true },
     timestamp: { type: Number, required: true },
 })
 
-const userSchema: Schema = new Schema<IUser>({
+const userSchema: mongoose.Schema = new mongoose.Schema<IUser>({
     name: { type: String, required: true },
     points: { type: Number, required: false, default: 0 },
     pointsHistory: { type: [userPointsHistorySchema], required: false, default: [] }
 });
 
-const User = MongooseModel<IUser>('users', userSchema);
+const User = mongoose.model<IUser>('users', userSchema);
 
 export { IUser, User };
