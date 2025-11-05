@@ -1,90 +1,115 @@
-import HttpStatusCodes from "@src/common/HttpStatusCodes"
-import { User } from "@src/models/User"
-import type { Request, Response } from "express"
+import HttpStatusCodes from '@src/common/HttpStatusCodes';
+import { User } from '@src/models/User';
+import type { Request, Response } from 'express';
 
 export const getAllUsers = async (req: Request, res: Response) => {
-    try {
-        const users = await User.find();
-        res.status(HttpStatusCodes.OK).json({ success: true, data: { users } })
-    } catch (error) {
-        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message })
-    }
-}
+  try {
+    const users = await User.find();
+    res.status(HttpStatusCodes.OK).json({ success: true, data: { users } });
+  } catch (error) {
+    let errorMessage = 'Unknown error, please try again later.';
+
+    if (error instanceof Error)
+      errorMessage = error.message;
+
+    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: errorMessage });
+  }
+};
 
 export const getUser = async (req: Request, res: Response) => {
-    const userID = req.params?.userID;
+  const userID = req.params?.userID;
 
-    if (!userID) {
-        res.status(HttpStatusCodes.BAD_REQUEST).json({ success: false, error: 'userID is required!' });
-        return;
+  if (!userID) {
+    res.status(HttpStatusCodes.BAD_REQUEST).json({ success: false, error: 'userID is required!' });
+    return;
+  }
+
+  try {
+    const user = await User.findById(userID);
+
+    if (!user) {
+      res.status(HttpStatusCodes.NOT_FOUND).json({ success: false, error: 'User not found!' });
+      return;
     }
 
-    try {
-        const user = await User.findById(userID);
+    res.status(HttpStatusCodes.OK).json({ success: true, data: { user } });
+  } catch (error) {
+    let errorMessage = 'Unknown error, please try again later.';
 
-        if (!user) {
-            res.status(HttpStatusCodes.NOT_FOUND).json({ success: false, error: 'User not found!' });
-            return;
-        }
+    if (error instanceof Error)
+      errorMessage = error.message;
 
-        res.status(HttpStatusCodes.OK).json({ success: true, data: { user } })
-    } catch (error) {
-        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message });
-    }
-}
+    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: errorMessage });
+  }
+};
 
 export const createUser = async (req: Request, res: Response) => {
-    const { name } = req.body;
+  const { name } = req.body as { name?: string };
 
-    try {
-        const user = await User.create({ name });
-        res.status(HttpStatusCodes.CREATED).json({ success: true, data: { user } });
-    } catch (error) {
-        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message })
-    }
-}
+  if (!name) {
+    res.status(HttpStatusCodes.BAD_REQUEST).json({ success: false, error: 'Field \'name\' is required!' });
+    return;
+  }
+
+  try {
+    const user = await User.create({ name });
+    res.status(HttpStatusCodes.CREATED).json({ success: true, data: { user } });
+  } catch (error) {
+    let errorMessage = 'Unknown error, please try again later.';
+
+    if (error instanceof Error)
+      errorMessage = error.message;
+
+    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: errorMessage });
+  }
+};
 
 export const addPointsToUser = async (req: Request, res: Response) => {
-    const userID = req.params?.userID;
+  const userID = req.params?.userID;
 
-    if (!userID) {
-        res.status(HttpStatusCodes.BAD_REQUEST).json({ success: false, error: 'userID is required!' });
-        return;
+  if (!userID) {
+    res.status(HttpStatusCodes.BAD_REQUEST).json({ success: false, error: 'userID is required!' });
+    return;
+  }
+
+  try {
+    const user = await User.findById(userID);
+
+    if (!user) {
+      res.status(HttpStatusCodes.NOT_FOUND).json({ success: false, error: 'User not found!' });
+      return;
     }
 
-    try {
-        const user = await User.findById(userID);
+    const pointsAdded = Math.floor(Math.random() * 10) + 1;
 
-        if (!user) {
-            res.status(HttpStatusCodes.NOT_FOUND).json({ success: false, error: 'User not found!' });
-            return;
-        }
+    user.points += pointsAdded;
 
-        const pointsAdded = Math.floor(Math.random() * 10) + 1
+    user.pointsHistory = [
+      ...(user.pointsHistory || []), // Just in case the user's object doesn't have the pointsHistory property
+      {
+        pointsAdded,
+        timestamp: Date.now(),
+      },
+    ];
 
-        user.points += pointsAdded;
+    await user.save();
 
-        user.pointsHistory = [
-            ...(user.pointsHistory || []), // Just in case the user's object doesn't have the pointsHistory property
-            {
-                pointsAdded,
-                timestamp: Date.now()
-            }
-        ]
+    res.status(HttpStatusCodes.OK).json({
+      success: true, data: {
+        user: { // Don't want to be sending the entire points history on every "claim", so we use (GET /api/users/:userID) for points history
+          _id: user._id,
+          name: user.name,
+          points: user.points,
+        },
+        pointsAdded,
+      },
+    });
+  } catch (error) {
+    let errorMessage = 'Unknown error, please try again later.';
 
-        await user.save()
+    if (error instanceof Error)
+      errorMessage = error.message;
 
-        res.status(HttpStatusCodes.OK).json({
-            success: true, data: {
-                user: { // Don't want to be sending the entire points history on every "claim", so we use (GET /api/users/:userID) for points history
-                    _id: user._id,
-                    name: user.name,
-                    points: user.points,
-                },
-                pointsAdded
-            }
-        });
-    } catch (error) {
-        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error.message });
-    }
-}
+    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: errorMessage });
+  }
+};

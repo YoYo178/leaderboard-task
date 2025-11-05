@@ -1,5 +1,5 @@
-import { addPointsToUser, createUser, getAllUsers, getUser } from "@src/controllers/userController";
-import { Router } from "express";
+import { addPointsToUser, createUser, getAllUsers, getUser } from '@src/controllers/userController';
+import { Router } from 'express';
 
 export const userRouter = Router();
 

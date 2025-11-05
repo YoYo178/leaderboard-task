@@ -1,16 +1,19 @@
 import logger from 'jet-logger';
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from 'express';
 
-import HttpStatusCodes from "@src/common/HttpStatusCodes";
-import { NodeEnvs } from "@src/common";
-import ENV from "@src/common/ENV";
+import HttpStatusCodes from '@src/common/HttpStatusCodes';
+import { NodeEnvs } from '@src/common';
+import ENV from '@src/common/ENV';
 
-export const errorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
-    if (ENV.NodeEnv !== NodeEnvs.Test.valueOf())
-        logger.err(error, true);
+export const errorHandler = (error: unknown, req: Request, res: Response, _next: NextFunction) => {
+  if (ENV.NodeEnv !== NodeEnvs.Test.valueOf())
+    logger.err(error, true);
 
-    const status = error?.statusCode || HttpStatusCodes.INTERNAL_SERVER_ERROR;
-    const message = error?.message || 'Something went wrong';
+  const statusCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
+  let errorMessage = 'Unknown error, please try again later.';
 
-    res.status(status).json({ error: message });
-}
+  if (error instanceof Error)
+    errorMessage = error.message;
+
+  res.status(statusCode).json({ error: errorMessage });
+};

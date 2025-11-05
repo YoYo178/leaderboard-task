@@ -12,14 +12,14 @@ interface IUserPointsHistory {
 }
 
 const userPointsHistorySchema: mongoose.Schema = new mongoose.Schema<IUserPointsHistory>({
-    pointsAdded: { type: Number, required: true },
-    timestamp: { type: Number, required: true },
-})
+  pointsAdded: { type: Number, required: true },
+  timestamp: { type: Number, required: true },
+});
 
 const userSchema: mongoose.Schema = new mongoose.Schema<IUser>({
-    name: { type: String, required: true },
-    points: { type: Number, required: false, default: 0 },
-    pointsHistory: { type: [userPointsHistorySchema], required: false, default: [] }
+  name: { type: String, required: true },
+  points: { type: Number, required: false, default: 0 },
+  pointsHistory: { type: [userPointsHistorySchema], required: false, default: [] },
 });
 
 const User = mongoose.model<IUser>('users', userSchema);

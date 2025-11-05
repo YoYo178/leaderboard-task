@@ -38,7 +38,7 @@ if (ENV.NodeEnv === NodeEnvs.Production) {
 // Add error handler
 app.use(errorHandler);
 
-app.use('/api', APIRouter)
+app.use('/api', APIRouter);
 /******************************************************************************
                                 Export default
 ******************************************************************************/

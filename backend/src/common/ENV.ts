@@ -12,7 +12,7 @@ const ENV = jetEnv({
   NodeEnv: isEnumVal(NodeEnvs),
   Port: num,
 
-  MongodbUri: str
+  MongodbUri: str,
 });
 
 
