@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 
 import ENV from '@src/common/ENV';
-import { NodeEnvs } from '@src/common';
+import { NODE_ENVS } from '@src/common';
 import { errorHandler } from './middlewares/errorHandler';
 import { APIRouter } from './routes/apiRouter';
 import { CORS_CONFIG } from './config/CORS';
@@ -23,12 +23,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Show routes called in console during development
-if (ENV.NodeEnv === NodeEnvs.Dev) {
+if (ENV.NodeEnv === NODE_ENVS.Dev) {
   app.use(morgan('dev'));
 }
 
 // Security
-if (ENV.NodeEnv === NodeEnvs.Production) {
+if (ENV.NodeEnv === NODE_ENVS.Production) {
   // eslint-disable-next-line n/no-process-env
   if (!process.env.DISABLE_HELMET) {
     app.use(helmet());
