@@ -7,5 +7,5 @@
 export const NODE_ENVS = {
   Dev: 'development',
   Test: 'test',
-  Production: 'production'
+  Production: 'production',
 } as const;
