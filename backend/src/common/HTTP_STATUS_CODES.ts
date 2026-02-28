@@ -1,6 +1,3 @@
-import { ValueOf } from 'jet-validators';
-
-
 /**
  * Hypertext Transfer Protocol (HTTP) response status codes.
  * @see {@link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes}
@@ -71,10 +68,9 @@ const HTTP_STATUS_CODES = {
   NetworkAuthenticationRequired: 511,
 } as const;
 
-
 /******************************************************************************
                             Export default
 ******************************************************************************/
 
-export type HttpStatusCodes = ValueOf<typeof HTTP_STATUS_CODES>;
+export type HttpStatusCodes = typeof HTTP_STATUS_CODES[keyof typeof HTTP_STATUS_CODES];
 export default HTTP_STATUS_CODES;
